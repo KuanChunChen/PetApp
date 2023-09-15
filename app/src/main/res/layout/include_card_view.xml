@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
+        android:layout_width="108dp"
+        android:layout_height="94dp"
+        app:cardBackgroundColor="#CAC7BFD4"
+        app:cardCornerRadius="22dp">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_image_default"
+            android:layout_gravity="center" />
+
+    </androidx.cardview.widget.CardView>
+</merge>

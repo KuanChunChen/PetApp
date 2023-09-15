@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity4">
+
+    <ImageView
+        android:id="@+id/ivQuestion"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/base_button_background"
+        android:src="@drawable/help_circle"
+        app:layout_constraintBottom_toBottomOf="@+id/includeName"
+        app:layout_constraintEnd_toEndOf="@+id/includeExample"
+        app:layout_constraintTop_toTopOf="@+id/includeName" />
+
+    <TextView
+        android:id="@+id/tvFoodExample"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="30dp"
+        android:background="@drawable/base_button_background"
+        android:gravity="center"
+        android:text="食物範本"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tvCount"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/includeAdd"
+        app:layout_constraintVertical_bias="0.9"
+        app:layout_constraintWidth_percent="0.3" />
+
+    <TextView
+        android:id="@+id/tvCount"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/base_button_background"
+        android:gravity="center"
+        android:text="營養計算"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvFoodExample"
+        app:layout_constraintTop_toBottomOf="@+id/includeAdd"
+        app:layout_constraintVertical_bias="0.9"
+        app:layout_constraintWidth_percent="0.3" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/ivProfile"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="10dp"
+        app:cardBackgroundColor="#CAC7BFD4"
+        app:cardCornerRadius="22dp"
+        app:layout_constraintBottom_toBottomOf="@+id/rv"
+        app:layout_constraintEnd_toEndOf="@+id/ivQuestion"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/glCenter">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_image_default" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glCenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toStartOf="@+id/glCenter"
+        app:layout_constraintStart_toStartOf="@+id/includeName"
+        app:layout_constraintTop_toBottomOf="@+id/includeName"
+        tools:listitem="@layout/item_nutrients" />
+
+    <include
+        android:id="@+id/includeToolbar"
+        layout="@layout/include_toolbar" />
+
+    <include
+        android:id="@+id/includeExample"
+        layout="@layout/item_spinner_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/includeToolbar" />
+
+    <include
+        android:id="@+id/includeName"
+        layout="@layout/item_input_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toStartOf="@+id/ivQuestion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/includeExample" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="180dp"
+    android:background="@drawable/base_card_background">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
+        android:layout_width="108dp"
+        android:layout_height="94dp"
+        app:cardBackgroundColor="#CAC7BFD4"
+        app:cardCornerRadius="22dp"
+        android:layout_marginStart="15dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_image_default"
+            android:layout_gravity="center" />
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/tvRecord"
+        android:layout_width="85dp"
+        android:layout_height="34dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/base_button_background"
+        android:gravity="center"
+        android:text="進入紀錄"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/tvBySelf" />
+
+    <TextView
+        android:id="@+id/tvBySelf"
+        android:layout_width="85dp"
+        android:layout_height="34dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/base_button_background"
+        android:gravity="center"
+        android:text="個體詳情"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvAnalyze"
+        android:layout_width="85dp"
+        android:layout_height="34dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/base_button_background"
+        android:gravity="center"
+        android:text="統計"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvBySelf" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
