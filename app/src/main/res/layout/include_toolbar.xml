@@ -30,20 +30,30 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/ibRight"
+        app:layout_constraintEnd_toStartOf="@+id/cvBlock"
         app:layout_constraintStart_toEndOf="@+id/ibLeft"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <ImageButton
-        android:id="@+id/ibRight"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvBlock"
         android:layout_width="95dp"
-        android:visibility="invisible"
         android:layout_height="0dp"
+        android:visibility="invisible"
+        app:cardBackgroundColor="#D9D9D9"
+        app:cardCornerRadius="100dp"
         android:background="@drawable/ic_main_logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toTopOf="parent">
+        <ImageButton
+            android:id="@+id/ibRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/ic_image_default"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

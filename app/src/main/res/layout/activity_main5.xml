@@ -4,18 +4,158 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity5">
+    tools:context=".MainActivity4">
 
-    <Button
-        android:id="@+id/button11"
+    <include
+        android:id="@+id/includeToolbar"
+        layout="@layout/include_toolbar" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nsvMain"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvSave"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/includeToolbar" >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/ivQuestion"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:text="g"
+                android:textColor="@color/black"
+                android:autoSizeTextType="uniform"
+                app:layout_constraintBottom_toBottomOf="@+id/includeFreeInput"
+                app:layout_constraintEnd_toEndOf="@+id/includeExample"
+                app:layout_constraintTop_toTopOf="@+id/includeFreeInput" />
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/ivProfile"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_marginStart="10dp"
+                app:cardBackgroundColor="#D9D9D9"
+                app:cardCornerRadius="22dp"
+                app:layout_constraintBottom_toBottomOf="@+id/rvNutrients"
+                app:layout_constraintEnd_toEndOf="@+id/ivQuestion"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/glCenter"
+                app:layout_constraintTop_toTopOf="@+id/rvNutrients"
+                app:layout_constraintVertical_bias="1.0">
+
+                <ImageView
+                    android:id="@+id/ivFood"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_image_default" />
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/glCenter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <TextView
+                android:id="@+id/tvRvTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:paddingHorizontal="22dp"
+                android:layout_marginTop="15dp"
+                android:text="營養素"
+                app:layout_constraintEnd_toStartOf="@+id/glCenter"
+                app:layout_constraintStart_toStartOf="@+id/includeFreeInput"
+                app:layout_constraintTop_toBottomOf="@+id/includeFreeInput" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvNutrients"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/glCenter"
+                app:layout_constraintStart_toStartOf="@+id/includeFreeInput"
+                app:layout_constraintTop_toBottomOf="@+id/tvRvTitle"
+                tools:listitem="@layout/item_nutrients" />
+
+            <include
+                android:id="@+id/includeExample"
+                layout="@layout/item_spinner_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="40dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <include
+                android:id="@+id/includeFreeInput"
+                layout="@layout/item_input_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="15dp"
+                app:layout_constraintEnd_toStartOf="@+id/ivQuestion"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/includeExample" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glOutCenter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="View7"
-        android:text="結算"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <TextView
+        android:id="@+id/tvSave"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginHorizontal="30dp"
+        android:background="@drawable/base_button_background"
+        android:gravity="center"
+        android:text="儲存並返回"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/tvNextRecord"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="@+id/glOutCenter"
+        app:layout_constraintTop_toBottomOf="@+id/nsvMain" />
+
+    <TextView
+        android:id="@+id/tvNextRecord"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginHorizontal="30dp"
+        android:background="@drawable/base_button_background"
+        android:gravity="center"
+        android:text="進入紀錄"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@+id/tvSave"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.914"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.959" />
+        app:layout_constraintStart_toStartOf="@+id/glOutCenter" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

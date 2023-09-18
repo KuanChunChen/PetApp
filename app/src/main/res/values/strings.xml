@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">My Application</string>
+
+    <string-array name="food_array">
+        <item>地球</item>
+        <item>火星</item>
+        <item>金星</item>
+    </string-array>
 </resources>

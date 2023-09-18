@@ -4,18 +4,183 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity8">
+    tools:context=".MainActivity6">
 
-    <Button
-        android:id="@+id/button13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="View3"
-        android:text="回首頁"
+    <include
+        android:id="@+id/includeToolbar"
+        layout="@layout/include_toolbar" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nsvMain"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/includeToolbar" >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/glCenter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/glTop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.10" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/glBottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.8" />
+
+            <TextView
+                android:id="@+id/tvExpect"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/base_card_background"
+                android:paddingVertical="10dp"
+                android:layout_marginHorizontal="50dp"
+                android:gravity="center"
+                android:text="日"
+                android:textColor="#000000"
+                app:layout_constraintEnd_toStartOf="@+id/glCenter"
+                app:layout_constraintStart_toStartOf="@+id/vHorizontalDivider"
+                app:layout_constraintTop_toTopOf="@+id/glTop" />
+
+
+            <TextView
+                android:id="@+id/tvExpect2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/base_card_background"
+                android:paddingVertical="10dp"
+                android:layout_marginHorizontal="50dp"
+                android:gravity="center"
+                android:text="月"
+                android:textColor="#000000"
+                app:layout_constraintEnd_toEndOf="@+id/vHorizontalDivider"
+                app:layout_constraintStart_toEndOf="@+id/glCenter"
+                app:layout_constraintTop_toTopOf="@+id/glTop" />
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvBlock"
+                android:layout_width="0dp"
+                android:layout_height="250dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="20dp"
+                app:cardBackgroundColor="#D9D9D9"
+                app:cardCornerRadius="22dp"
+                app:layout_constraintEnd_toEndOf="@+id/vHorizontalDivider"
+                app:layout_constraintStart_toStartOf="@+id/vHorizontalDivider"
+                app:layout_constraintTop_toBottomOf="@+id/tvExpect">
+
+            </androidx.cardview.widget.CardView>
+
+
+            <include
+                android:id="@+id/includeSnake"
+                layout="@layout/item_nutrients"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toStartOf="@+id/includeSnake2"
+                app:layout_constraintStart_toStartOf="@+id/cvBlock"
+                app:layout_constraintTop_toBottomOf="@+id/cvBlock" />
+
+            <include
+                android:id="@+id/includeSnake2"
+                layout="@layout/item_nutrients"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toStartOf="@+id/includeSnake3"
+                app:layout_constraintStart_toEndOf="@+id/includeSnake"
+                app:layout_constraintTop_toBottomOf="@+id/cvBlock" />
+
+            <include
+                android:id="@+id/includeSnake3"
+                layout="@layout/item_nutrients"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="@+id/cvBlock"
+                app:layout_constraintStart_toEndOf="@+id/includeSnake2"
+                app:layout_constraintTop_toBottomOf="@+id/cvBlock" />
+
+            <include
+                android:id="@+id/includeChoseView"
+                layout="@layout/item_chose_view"
+                android:layout_width="0dp"
+                android:layout_height="47dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="@+id/cvBlock"
+                app:layout_constraintStart_toStartOf="@+id/cvBlock"
+                app:layout_constraintTop_toBottomOf="@+id/includeSnake2" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvBlock2"
+                android:layout_width="0dp"
+                android:layout_height="250dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginHorizontal="20dp"
+                app:cardBackgroundColor="#D9D9D9"
+                app:cardCornerRadius="22dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/vHorizontalDivider"
+                app:layout_constraintStart_toStartOf="@+id/vHorizontalDivider"
+                app:layout_constraintTop_toBottomOf="@+id/includeChoseView">
+
+            </androidx.cardview.widget.CardView>
+
+
+            <View
+                android:id="@+id/vHorizontalDivider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="#000000"
+                android:visibility="invisible"
+                android:layout_marginHorizontal="40dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/glTop"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+
+    <TextView
+        android:id="@+id/tvBack"
+        android:layout_width="105dp"
+        android:layout_height="45dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/base_button_background"
+        android:gravity="center"
+        android:text="返回"
+        android:textColor="#000000"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.914"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.95" />
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintTop_toBottomOf="@+id/nsvMain"
+        />
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

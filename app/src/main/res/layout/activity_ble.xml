@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/lianjie"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="连接"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:textSize="25sp"
+        android:background="@drawable/base_button_background"
+    />
+
+
+    <EditText
+        android:id="@+id/maindakaidengpaoed"
+        android:layout_height="0.01dp"
+        android:layout_width="0.01dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        />
+    <EditText
+        android:id="@+id/mainguanbidengpaoed"
+        android:layout_height="0.01dp"
+        android:layout_width="0.01dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="15dp"
+        />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true" />
+
+    <include
+        android:id="@+id/includeToolbar"
+        layout="@layout/include_toolbar"/>
+
+    <TextView
+        android:id="@+id/zhong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp"
+        android:text="重量"
+        android:textSize="60sp" />
+
+    <TextView
+        android:id="@+id/liang"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/zhong"
+        android:layout_alignBottom="@+id/zhong"
+        android:layout_toRightOf="@+id/zhong"
+        android:text="数据"
+        android:textSize="60sp" />
+
+    <TextView
+        android:id="@+id/tvData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/liang"
+        android:layout_alignParentLeft="true"
+        android:text="重量数据:"
+        android:textSize="25sp" />
+
+</RelativeLayout>

@@ -4,18 +4,143 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity7">
+    tools:context=".MainActivity6">
 
-    <Button
-        android:id="@+id/button12"
+    <include
+        android:id="@+id/includeToolbar"
+        layout="@layout/include_toolbar" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glCenter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="View8"
-        android:text="查詢紀錄狀況"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.8" />
+
+    <TextView
+        android:id="@+id/tvExpect"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="欠缺營養"
+        android:paddingStart="30dp"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toStartOf="@+id/glCenter"
+        app:layout_constraintStart_toStartOf="@+id/vHorizontalDivider"
+        app:layout_constraintTop_toTopOf="@+id/glTop" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvExpect"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/cvBlock"
+        app:layout_constraintEnd_toStartOf="@+id/glCenter"
+        app:layout_constraintStart_toStartOf="@+id/vHorizontalDivider"
+        app:layout_constraintTop_toBottomOf="@+id/tvExpect"
+        tools:listitem="@layout/item_nutrients" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvBlock"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_marginHorizontal="20dp"
+        app:cardBackgroundColor="#D9D9D9"
+        app:cardCornerRadius="22dp"
+        app:layout_constraintBottom_toBottomOf="@+id/glBottom"
+        app:layout_constraintEnd_toStartOf="@+id/glCenter"
+        app:layout_constraintStart_toStartOf="@+id/rvExpect"
+        app:layout_constraintTop_toBottomOf="@+id/rvExpect">
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/tvExpect2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingStart="30dp"
+        android:text="可補充"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="@+id/vHorizontalDivider"
+        app:layout_constraintStart_toEndOf="@+id/tvExpect"
+        app:layout_constraintTop_toTopOf="@+id/glTop" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvExpect2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/cvBlock2"
+        app:layout_constraintEnd_toEndOf="@+id/vHorizontalDivider"
+        app:layout_constraintStart_toEndOf="@+id/vVerticalDivider"
+        app:layout_constraintTop_toBottomOf="@+id/tvExpect2"
+        tools:listitem="@layout/item_nutrients" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvBlock2"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_marginHorizontal="20dp"
+        app:cardBackgroundColor="#D9D9D9"
+        app:cardCornerRadius="22dp"
+        app:layout_constraintBottom_toBottomOf="@+id/glBottom"
+        app:layout_constraintStart_toStartOf="@+id/glCenter"
+        app:layout_constraintEnd_toEndOf="@+id/rvExpect2"
+        app:layout_constraintTop_toBottomOf="@+id/rvExpect2">
+
+    </androidx.cardview.widget.CardView>
+
+    <View
+        android:id="@+id/vVerticalDivider"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:background="#000000"
+        app:layout_constraintStart_toStartOf="@+id/glCenter"
+        app:layout_constraintEnd_toEndOf="@id/glCenter"
+        app:layout_constraintBottom_toBottomOf="@id/glBottom"
+        app:layout_constraintTop_toTopOf="@+id/glTop"/>
+
+    <View
+        android:id="@+id/vHorizontalDivider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="#000000"
+        android:visibility="invisible"
+        android:layout_marginHorizontal="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/glTop"/>
+
+
+    <TextView
+        android:id="@+id/tvExit"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginHorizontal="20dp"
+        android:background="@drawable/base_button_background"
+        android:gravity="center"
+        android:text="回首頁"
+        android:textColor="#000000"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.908"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.922" />
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="@+id/glCenter"
+        app:layout_constraintTop_toTopOf="@+id/glBottom" />
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

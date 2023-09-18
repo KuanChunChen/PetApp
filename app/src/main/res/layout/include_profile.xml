@@ -26,12 +26,12 @@
         android:layout_marginEnd="10dp"
         android:layout_marginTop="15dp"
         app:cardCornerRadius="22dp"
-        app:cardBackgroundColor="#CAC7BFD4"
+        app:cardBackgroundColor="#CACABF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/ivCenter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_image_default"
@@ -129,7 +129,7 @@
         android:text="確認"
         android:textColor="#000000"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/ivQuestion"
+        app:layout_constraintEnd_toEndOf="@+id/ivProfile"
         app:layout_constraintTop_toBottomOf="@+id/includeWeight" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
