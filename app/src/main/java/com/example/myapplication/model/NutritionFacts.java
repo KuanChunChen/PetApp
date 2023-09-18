@@ -4,7 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "nutrition_facts")
 public class NutritionFacts {
+    @PrimaryKey(autoGenerate = true)
+    public int id;
 
     public String name;
     public int carbohydrates;
@@ -28,26 +34,26 @@ public class NutritionFacts {
 
     public List<String> toStringList() {
         List<String> stringList = new ArrayList<>();
-        if (carbohydrates != 0) {
-            stringList.add("碳水化合物 " + carbohydrates + " g");
+        if (carbohydrates != -1) {
+            stringList.add("碳水化合物," + carbohydrates + ",g");
         }
-        if (protein != 0) {
-            stringList.add("蛋白質 " + protein + " g");
+        if (protein != -1) {
+            stringList.add("蛋白質," + protein + ",g");
         }
-        if (fat != 0) {
-            stringList.add("脂肪 " + fat + " g");
+        if (fat != -1) {
+            stringList.add("脂肪," + fat + ",g");
         }
-        if (vitamins != 0) {
-            stringList.add("維生素 " + vitamins + " g");
+        if (vitamins != -1) {
+            stringList.add("維生素," + vitamins + ",g");
         }
-        if (minerals != 0) {
-            stringList.add("礦物質 " + minerals + " g");
+        if (minerals != -1) {
+            stringList.add("礦物質," + minerals + ",g");
         }
-        if (dietaryFiber != 0) {
-            stringList.add("膳食纖維 " + dietaryFiber + " g");
+        if (dietaryFiber != -1) {
+            stringList.add("膳食纖維," + dietaryFiber + ",g");
         }
-        if (water != 0) {
-            stringList.add("水分 " + water + " g");
+        if (water != -1) {
+            stringList.add("水分," + water + ",g");
         }
         return stringList;
     }

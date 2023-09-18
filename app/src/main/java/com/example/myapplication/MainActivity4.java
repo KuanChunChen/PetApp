@@ -3,21 +3,24 @@ package com.example.myapplication;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.adapter.NutrientAdapter;
 import com.example.myapplication.databinding.ActivityMain4Binding;
+import com.example.myapplication.db.AppDatabase;
+import com.example.myapplication.db.dao.NutritionFactsDao;
 import com.example.myapplication.model.NutritionFacts;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -27,14 +30,92 @@ public class MainActivity4 extends AppCompatActivity {
     private NutrientAdapter nutrientAdapter;
 
 
+    private AppDatabase appDatabase;
+    private NutritionFactsDao nutritionFactsDao;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMain4Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        appDatabase = PetApplication.getDatabase(this);
+        nutritionFactsDao = appDatabase.nutritionFactsDao();
         initView();
+
     }
 
+    Thread initExampleThread;
+    Thread saveDataThread;
+    Thread initTableThread;
+
+    private String[] mapToNameList(List<NutritionFacts> nutritionFactsList) {
+        String[] names = new String[nutritionFactsList.size()];
+        for (int i = 0; i < nutritionFactsList.size(); i++) {
+            names[i] = nutritionFactsList.get(i).name;
+        }
+        return names;
+    }
+
+    private void initTable() {
+
+        initTableThread = new Thread(() -> {
+            int count = nutritionFactsDao.getNutritionFactsCount();
+            if (count == 0 ){
+                NutritionFacts noExample = new NutritionFacts("尚無範本", 0, 0, 0, 0, 0, 0, 0);
+                nutritionFactsDao.insert(noExample);
+            }
+
+            List<NutritionFacts> nutritionFactsList;
+            if (count == 0 || count == 1) {
+                nutritionFactsList = nutritionFactsDao.getAllNutritionFacts();
+            } else {
+                nutritionFactsList = nutritionFactsDao.getAllNutritionFactsExcept("尚無範本");
+            }
+
+            String[] nutritionFactsName = mapToNameList(nutritionFactsList);
+            new Handler(Looper.getMainLooper()).post(() -> {
+                ArrayAdapter<String> adapter;
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, nutritionFactsName);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                binding.includeExample.spinner.setAdapter(adapter);
+            });
+
+            nutrientAdapter = new NutrientAdapter(Collections.singletonList(""), binding.rvNutrients);
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+            binding.rvNutrients.setLayoutManager(layoutManager);
+            binding.rvNutrients.setAdapter(nutrientAdapter);
+
+            binding.includeExample.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    String selectedString = parent.getItemAtPosition(position).toString();
+                    if (initExampleThread != null && initExampleThread.isAlive()) {
+                        initExampleThread.interrupt();
+                    }
+                    initExampleThread = new Thread(() -> {
+                        NutritionFacts nutritionFacts = nutritionFactsDao.getNutritionFactsByName(selectedString);
+                        Log.d("Test", "test:nutritionFacts" + nutritionFacts);
+                        Log.d("Test", "test:nutritionFacts" + nutritionFacts.id);
+                        Log.d("Test", "test:nutritionFacts" + nutritionFacts.name);
+
+                        new Handler(Looper.getMainLooper()).post(() -> {
+                            binding.includeFreeInput.etInput.setText(nutritionFacts.name);
+                            nutrientAdapter.updateList(nutritionFacts.toStringList());
+                        });
+                    });
+                    initExampleThread.start();
+//
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+
+        });
+        initTableThread.start();
+    }
     private void initView() {
         binding.includeToolbar.tvTitle.setText("食物範本");
         binding.includeToolbar.cvBlock.setVisibility(View.VISIBLE);
@@ -44,69 +125,37 @@ public class MainActivity4 extends AppCompatActivity {
         binding.tvRvTitle.setText("營養素");
 
         binding.ivQuestion.setOnClickListener(v -> {
-            Toast.makeText(getApplicationContext(), "Show something here.", Toast.LENGTH_SHORT).show();
-
+            Toast.makeText(getApplicationContext(), "這邊有輸入名字的話會幫你新建一筆範本", Toast.LENGTH_SHORT).show();
         });
 
-        nutrientAdapter = new NutrientAdapter(Collections.singletonList(""));
-
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        binding.rvNutrients.setLayoutManager(layoutManager);
-        binding.rvNutrients.setAdapter(nutrientAdapter);
-
-
-        List<String> itemList = new ArrayList<>();
-        itemList.add("雞肉沙拉");
-        itemList.add("茶葉蛋");
-        itemList.add("雞胸肉");
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, itemList);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        binding.includeExample.spinner.setAdapter(adapter);
-        binding.includeExample.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedString = parent.getItemAtPosition(position).toString();
-                switch (position) {
-                    case 0:
-                        NutritionFacts chickenSalad = new NutritionFacts(selectedString,20, 15, 10, 5, 3, 2, 30);
-                        nutrientAdapter.updateList(chickenSalad.toStringList());
-                        binding.ivFood.setVisibility(View.GONE);
-                        binding.includeToolbar.ibRight.setVisibility(View.GONE);
-                        binding.includeToolbar.cvBlock.setBackground(ContextCompat.getDrawable(MainActivity4.this, R.drawable.ic_1));
-                        binding.ivProfile.setBackground(ContextCompat.getDrawable(MainActivity4.this, R.drawable.ic_1));
-                        break;
-                    case 1:
-                        NutritionFacts teaEgg = new NutritionFacts(selectedString,5, 10, 8, 2, 1, 1, 20);
-                        nutrientAdapter.updateList(teaEgg.toStringList());
-                        binding.ivFood.setVisibility(View.GONE);
-                        binding.includeToolbar.ibRight.setVisibility(View.GONE);
-                        binding.includeToolbar.cvBlock.setBackground(ContextCompat.getDrawable(MainActivity4.this, R.drawable.ic_2));
-                        binding.ivProfile.setBackground(ContextCompat.getDrawable(MainActivity4.this, R.drawable.ic_2));
-
-                        break;
-                    case 2:
-                        NutritionFacts chickenBreast = new NutritionFacts(selectedString, 15, 30, 5, 3, 2, 1, 40);
-                        nutrientAdapter.updateList(chickenBreast.toStringList());
-                        binding.ivFood.setVisibility(View.GONE);
-                        binding.includeToolbar.ibRight.setVisibility(View.GONE);
-                        binding.includeToolbar.cvBlock.setBackground(ContextCompat.getDrawable(MainActivity4.this, R.drawable.ic_3));
-                        binding.ivProfile.setBackground(ContextCompat.getDrawable(MainActivity4.this, R.drawable.ic_3));
-                        break;
-
-                    default:
-                        break;
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+        initTable();
 
         binding.tvSave.setOnClickListener(v -> {
-            finish();
+
+            if ((binding.includeFreeInput.etInput.getText().toString().equals(""))) {
+                Toast.makeText(getApplicationContext(), "需輸入自由新增名稱才能儲存", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            saveDataThread = new Thread(() -> {
+                String inputName = binding.includeFreeInput.etInput.getText().toString().trim();
+                NutritionFacts nutritionFacts = nutrientAdapter.getAllEditTextValues();
+                nutritionFacts.name = inputName;
+
+                boolean isExist = nutritionFactsDao.checkIfNameExist(inputName);
+                Log.d("test", "tst: isExist " + isExist);
+                if (isExist) {
+                    nutritionFactsDao.updateNutritionFacts(nutritionFacts.name, nutritionFacts.carbohydrates, nutritionFacts.protein, nutritionFacts.fat, nutritionFacts.vitamins, nutritionFacts.minerals, nutritionFacts.dietaryFiber, nutritionFacts.water);
+                } else {
+                    nutritionFactsDao.insert(nutritionFacts);
+                }
+                new Handler(Looper.getMainLooper()).post(() -> {
+                    Toast.makeText(getApplicationContext(), "成功儲存", Toast.LENGTH_SHORT).show();
+
+                    finish();
+                });
+            });
+            saveDataThread.start();
         });
 
         binding.tvNextRecord.setOnClickListener(v -> {

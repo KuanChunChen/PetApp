@@ -13,7 +13,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.adapter.NutrientAdapter;
+import com.example.myapplication.adapter.NutrientNoInputAdapter;
 import com.example.myapplication.databinding.ActivityMain5Binding;
 import com.example.myapplication.model.NutritionFacts;
 
@@ -25,7 +25,7 @@ public class MainActivity5 extends AppCompatActivity {
 
 
     private ActivityMain5Binding binding;
-    private NutrientAdapter nutrientAdapter;
+    private NutrientNoInputAdapter nutrientAdapter;
 
 
     @Override
@@ -48,7 +48,7 @@ public class MainActivity5 extends AppCompatActivity {
 
         });
 
-        nutrientAdapter = new NutrientAdapter(Collections.singletonList(""));
+        nutrientAdapter = new NutrientNoInputAdapter(Collections.singletonList(""));
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         binding.rvNutrients.setLayoutManager(layoutManager);

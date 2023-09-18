@@ -17,33 +17,6 @@
 
     <TextView
         android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="8dp"
-        android:maxEms="2"
-        android:text="xxxxx"
-        android:textColor="#000000"
-        app:layout_constraintEnd_toStartOf="@+id/etGram"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ivDot"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-
-    <EditText
-        android:id="@+id/etGram"
-        android:layout_width="30dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textColor="#000000"
-        android:inputType="number"
-        app:layout_constraintEnd_toStartOf="@+id/tvGram"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvTitle"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-    <TextView
-        android:id="@+id/tvGram"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
@@ -52,7 +25,6 @@
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/etGram"
+        app:layout_constraintStart_toEndOf="@+id/ivDot"
         app:layout_constraintBottom_toBottomOf="parent"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

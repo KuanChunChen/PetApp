@@ -1,4 +1,4 @@
-    package com.example.myapplication;
+package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,7 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.myapplication.adapter.NutrientAdapter;
+import com.example.myapplication.adapter.NutrientNoInputAdapter;
 import com.example.myapplication.databinding.ActivityMain7Binding;
 import com.example.myapplication.util.PetFoodGenerator;
 
@@ -32,7 +32,7 @@ public class MainActivity7 extends AppCompatActivity {
 
     private void initView() {
         binding.includeToolbar.tvTitle.setText("總結");
-        NutrientAdapter nutrientAdapterA = new NutrientAdapter(Collections.singletonList(""));
+        NutrientNoInputAdapter nutrientAdapterA = new NutrientNoInputAdapter(Collections.singletonList(""));
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         binding.rvExpect.setLayoutManager(layoutManager);
@@ -41,7 +41,7 @@ public class MainActivity7 extends AppCompatActivity {
         nutrientAdapterA.updateList(randomPetFoodListA);
 
         RecyclerView.LayoutManager layoutManager2 = new LinearLayoutManager(this);
-        NutrientAdapter nutrientAdapterB = new NutrientAdapter(Collections.singletonList(""));
+        NutrientNoInputAdapter nutrientAdapterB = new NutrientNoInputAdapter(Collections.singletonList(""));
         binding.rvExpect2.setLayoutManager(layoutManager2);
         binding.rvExpect2.setAdapter(nutrientAdapterB);
         List<String> randomPetFoodListB = PetFoodGenerator.generateRandomPetFoodList(new Random().nextInt(6) + 3);
