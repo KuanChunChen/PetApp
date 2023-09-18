@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -20,6 +21,9 @@ public class NutritionFacts {
     public int minerals;
     public int dietaryFiber;
     public int water;
+
+    @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
+    public byte[] imageBytes;
 
     public NutritionFacts(String name, int carbohydrates, int protein, int fat, int vitamins, int minerals, int dietaryFiber, int water) {
         this.name = name;

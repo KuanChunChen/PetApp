@@ -18,7 +18,7 @@ public interface NutritionFactsDao {
     @Update
     void update(NutritionFacts nutritionFacts);
 
-    @Query("UPDATE nutrition_facts SET carbohydrates = :carbohydrates, protein = :protein, fat = :fat, vitamins = :vitamins, minerals = :minerals, dietaryFiber = :dietaryFiber, water = :water WHERE name = :name")
+    @Query("UPDATE nutrition_facts SET carbohydrates = :carbohydrates, protein = :protein, fat = :fat, vitamins = :vitamins, minerals = :minerals, dietaryFiber = :dietaryFiber, water = :water, imageBytes= :imageBytes WHERE name = :name")
     void updateNutritionFacts(String name,
                               int carbohydrates,
                               int protein,
@@ -26,7 +26,9 @@ public interface NutritionFactsDao {
                               int vitamins,
                               int minerals,
                               int dietaryFiber,
-                              int water);
+                              int water,
+                              byte[] imageBytes);
+
 
     @Delete
     void delete(NutritionFacts nutritionFacts);
