@@ -34,7 +34,7 @@
             android:id="@+id/ivCenter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_image_default"
+            android:background="@drawable/ic_image_default"
             android:layout_gravity="center" />
 
     </androidx.cardview.widget.CardView>
