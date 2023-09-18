@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="species">
+        <item>物種A</item>
+        <item>物種B</item>
+    </string-array>
+
+    <string-array name="gender">
+        <item>男</item>
+        <item>女</item>
+    </string-array>
+
+    <string-array name="variety">
+        <item>品種A</item>
+        <item>品種B</item>
+    </string-array>
+
+    <string-array name="bodyShape">
+        <item>大</item>
+        <item>中</item>
+        <item>小</item>
+    </string-array>
+
+
+</resources>
