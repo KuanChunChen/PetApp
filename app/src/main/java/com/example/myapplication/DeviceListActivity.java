@@ -50,9 +50,7 @@ public class DeviceListActivity extends Activity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.BLUETOOTH}, 1);
         }
 
-        final BluetoothManager bluetoothManager =
-                (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
-        bluetoothAdapter = bluetoothManager.getAdapter();
+        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
         if (bluetoothAdapter == null) {
             Toast.makeText(this, "此設備不支援藍牙", Toast.LENGTH_SHORT).show();
@@ -77,12 +75,6 @@ public class DeviceListActivity extends Activity {
         if (enable) {
             handler.postDelayed(() -> {
                 mScanning = false;
-                if (ActivityCompat.checkSelfPermission(DeviceListActivity.this, Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED) {
-                    Log.d("Test", "on scanLeDevice cancel.");
-                    Toast.makeText(this, "請開啟權限", Toast.LENGTH_SHORT).show();
-                    finish();
-                    return;
-                }
                 bluetoothAdapter.cancelDiscovery();
                 binding.includeFinding.getRoot().setVisibility(View.GONE);
                 binding.tvFindDevice.setVisibility(View.VISIBLE);
@@ -105,35 +97,12 @@ public class DeviceListActivity extends Activity {
                 // 從Intent中獲取藍芽設備對象
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 // 將設備的名稱和地址打印出來
-                if (ActivityCompat.checkSelfPermission(DeviceListActivity.this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(DeviceListActivity.this, "(BroadcastReceiver) 請開啟權限", Toast.LENGTH_SHORT).show();
-                    finish();
-                    return;
-                }
-
                 Log.d("Test", "test device name" + device.getName());
                 Log.d("Test", "test device address" + device.getAddress());
                 pairedDevicesArrayAdapter.add(device.getName() + "\n" + device.getAddress());
             }
         }
     };
-
-    private BluetoothAdapter.LeScanCallback leScanCallback =
-            new BluetoothAdapter.LeScanCallback() {
-                @Override
-                public void onLeScan(final BluetoothDevice device, int rssi,
-                                     byte[] scanRecord) {
-                    runOnUiThread(() -> {
-                        if (ActivityCompat.checkSelfPermission(DeviceListActivity.this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-                            return;
-                        }
-                        Log.d("Test", "test device name" + device.getName());
-                        Log.d("Test", "test device address" + device.getAddress());
-                        Log.d("Test", "test rssi" + rssi);
-                        pairedDevicesArrayAdapter.add(device.getName() + "\n" + device.getAddress());
-                    });
-                }
-            };
 
 
     private void initView() {

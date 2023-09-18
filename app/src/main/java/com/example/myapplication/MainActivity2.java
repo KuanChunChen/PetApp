@@ -264,6 +264,8 @@ public class MainActivity2 extends AppCompatActivity {
 
             String address = data.getExtras()
                     .getString(DeviceListActivity.EXTRA_DEVICE_ADDRESS);
+            Log.d("Test", "\"address:" + address);
+
             _device = _bluetooth.getRemoteDevice(address);
             try {
                 if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
