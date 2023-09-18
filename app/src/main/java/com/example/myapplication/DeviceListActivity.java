@@ -5,11 +5,14 @@ import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -55,8 +58,16 @@ public class DeviceListActivity extends Activity {
             Toast.makeText(this, "此設備不支援藍牙", Toast.LENGTH_SHORT).show();
             finish();
         }
+
+        IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+        registerReceiver(receiver, filter);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(receiver);
+    }
 
     private Handler handler = new Handler();
     private boolean mScanning;
@@ -67,10 +78,12 @@ public class DeviceListActivity extends Activity {
             handler.postDelayed(() -> {
                 mScanning = false;
                 if (ActivityCompat.checkSelfPermission(DeviceListActivity.this, Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED) {
+                    Log.d("Test", "on scanLeDevice cancel.");
                     Toast.makeText(this, "請開啟權限", Toast.LENGTH_SHORT).show();
+                    finish();
                     return;
                 }
-                bluetoothAdapter.stopLeScan(leScanCallback);
+                bluetoothAdapter.cancelDiscovery();
                 binding.includeFinding.getRoot().setVisibility(View.GONE);
                 binding.tvFindDevice.setVisibility(View.VISIBLE);
             }, SCAN_PERIOD);
@@ -78,12 +91,32 @@ public class DeviceListActivity extends Activity {
             mScanning = true;
             binding.tvFindDevice.setVisibility(View.GONE);
             binding.includeFinding.getRoot().setVisibility(View.VISIBLE);
-            bluetoothAdapter.startLeScan(leScanCallback);
+            bluetoothAdapter.startDiscovery();
         } else {
             mScanning = false;
-            bluetoothAdapter.stopLeScan(leScanCallback);
+            bluetoothAdapter.cancelDiscovery();
         }
     }
+
+    final BroadcastReceiver receiver = new BroadcastReceiver() {
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (BluetoothDevice.ACTION_FOUND.equals(action)) {
+                // 從Intent中獲取藍芽設備對象
+                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                // 將設備的名稱和地址打印出來
+                if (ActivityCompat.checkSelfPermission(DeviceListActivity.this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(DeviceListActivity.this, "(BroadcastReceiver) 請開啟權限", Toast.LENGTH_SHORT).show();
+                    finish();
+                    return;
+                }
+
+                Log.d("Test", "test device name" + device.getName());
+                Log.d("Test", "test device address" + device.getAddress());
+                pairedDevicesArrayAdapter.add(device.getName() + "\n" + device.getAddress());
+            }
+        }
+    };
 
     private BluetoothAdapter.LeScanCallback leScanCallback =
             new BluetoothAdapter.LeScanCallback() {
@@ -94,6 +127,9 @@ public class DeviceListActivity extends Activity {
                         if (ActivityCompat.checkSelfPermission(DeviceListActivity.this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
                             return;
                         }
+                        Log.d("Test", "test device name" + device.getName());
+                        Log.d("Test", "test device address" + device.getAddress());
+                        Log.d("Test", "test rssi" + rssi);
                         pairedDevicesArrayAdapter.add(device.getName() + "\n" + device.getAddress());
                     });
                 }
