@@ -54,13 +54,13 @@ public class MainActivity3 extends AppCompatActivity {
             MainActivity5.createIntent(this);
         });
         binding.includeRecord.tvRecord.setOnClickListener(v -> {
-            MainActivity8.createIntent(this);
+            MainActivity5.createIntent(this);
         });
         binding.includeRecord.tvAnalyze.setOnClickListener(v -> {
             MainActivity8.createIntent(this);
         });
         binding.includeRecord.tvBySelf.setOnClickListener(v -> {
-            MainActivity8.createIntent(this);
+            finish();
         });
     }
 
