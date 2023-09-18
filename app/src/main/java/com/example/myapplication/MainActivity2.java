@@ -81,7 +81,7 @@ public class MainActivity2 extends AppCompatActivity {
         Intent intent = getIntent();
         String value = intent.getStringExtra("startFrom");
         if (value.equals("Main")) {
-            initView();
+
         } else if (value.equals("BTClient")) {
 
             if (_bluetooth == null) {
@@ -100,6 +100,7 @@ public class MainActivity2 extends AppCompatActivity {
             }).start();
             triggerBle();
         }
+        initView();
     }
 
     public void initView() {
