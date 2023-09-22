@@ -70,6 +70,7 @@ public class MainActivity2 extends AppCompatActivity {
     private AppDatabase appDatabase;
     private PetDao petDao;
 
+    private String startFrom, bleAddress = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +81,7 @@ public class MainActivity2 extends AppCompatActivity {
 
         Intent intent = getIntent();
         String value = intent.getStringExtra("startFrom");
+        startFrom = value;
         if (value.equals("Main")) {
 
         } else if (value.equals("BTClient")) {
@@ -178,7 +180,7 @@ public class MainActivity2 extends AppCompatActivity {
             } else {
                 id = petDao.insert(pet);
             }
-            new Handler(Looper.getMainLooper()).post(() -> MainActivity3.createIntent(this, id));
+            new Handler(Looper.getMainLooper()).post(() -> MainActivity3.createIntent(this, id, startFrom, bleAddress));
         });
         insertPetThread.start();
     }
@@ -266,7 +268,7 @@ public class MainActivity2 extends AppCompatActivity {
             String address = data.getExtras()
                     .getString(DeviceListActivity.EXTRA_DEVICE_ADDRESS);
             Log.d("Test", "\"address:" + address);
-
+            bleAddress = address;
             _device = _bluetooth.getRemoteDevice(address);
             try {
                 if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
@@ -293,6 +295,8 @@ public class MainActivity2 extends AppCompatActivity {
                 }
 
                 return;
+            } catch (Exception e) {
+                Toast.makeText(this, "连接失败！" + e, Toast.LENGTH_SHORT).show();
             }
 
 
@@ -321,6 +325,7 @@ public class MainActivity2 extends AppCompatActivity {
             while (true) {
                 try {
                     while (is.available() == 0) {
+
                         while (bRun == false) {
                         }
                     }
@@ -334,7 +339,8 @@ public class MainActivity2 extends AppCompatActivity {
 
 
                     }
-                } catch (IOException e) {
+                } catch (Exception e) {
+                    Toast.makeText(MainActivity2.this, "電子秤提供的代碼有問題！" + e, Toast.LENGTH_SHORT).show();
                 }
             }
         }
@@ -359,7 +365,7 @@ public class MainActivity2 extends AppCompatActivity {
         {
             int z =  (buffer[0]&0xff);
             int l =  (buffer[1]&0xff);
-            binding.includeProfile.includeWeight.etInput.setText(z + "." + l);
+//            binding.includeProfile.includeWeight.etInput.setText(z + "." + l);
         }
     };
 

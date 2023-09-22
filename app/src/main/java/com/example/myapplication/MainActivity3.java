@@ -34,6 +34,8 @@ public class MainActivity3 extends AppCompatActivity {
     private AppDatabase appDatabase;
     private PetDao petDao;
 
+    private String startFrom, bleAddress = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,10 @@ public class MainActivity3 extends AppCompatActivity {
         binding.includeToolbar.ibRight.setBackground(ContextCompat.getDrawable(this, R.drawable.plus_circle));
         Intent intent = getIntent();
         long value = intent.getLongExtra("id", -1);
+        String startFromValue = intent.getStringExtra("startFrom");
+        String bleAddressValue = intent.getStringExtra("bleAddress");
+        startFrom = startFromValue;
+        bleAddress = bleAddressValue;
         initIbRight(value);
 
         binding.includeAdd.imageView.setOnClickListener(v -> {
@@ -64,10 +70,10 @@ public class MainActivity3 extends AppCompatActivity {
             MainActivity4.createIntent(this);
         });
         binding.tvCount.setOnClickListener(v -> {
-            MainActivity5.createIntent(this);
+            MainActivity5.createIntent(this, startFrom, bleAddress);
         });
         binding.includeRecord.tvRecord.setOnClickListener(v -> {
-            MainActivity5.createIntent(this);
+            MainActivity5.createIntent(this, startFrom, bleAddress);
         });
         binding.includeRecord.tvAnalyze.setOnClickListener(v -> {
             MainActivity8.createIntent(this);
@@ -140,9 +146,11 @@ public class MainActivity3 extends AppCompatActivity {
         startActivityForResult(intent, REQUEST_IMAGE_PICK);
     }
 
-    public static void createIntent(Context context, long value) {
+    public static void createIntent(Context context, long value, String startFrom, String bleAddress) {
         Intent intent = new Intent(context, MainActivity3.class);
         intent.putExtra("id", value);
+        intent.putExtra("startFrom", startFrom);
+        intent.putExtra("bleAddress", bleAddress);
         context.startActivity(intent);
     }
 }
