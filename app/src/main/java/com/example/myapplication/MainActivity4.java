@@ -111,19 +111,25 @@ public class MainActivity4 extends AppCompatActivity {
                     }
                     initExampleThread = new Thread(() -> {
                         NutritionFacts nutritionFacts = nutritionFactsDao.getNutritionFactsByName(selectedString);
-                        Log.d("Test", "test:nutritionFacts" + nutritionFacts);
-                        Log.d("Test", "test:nutritionFacts" + nutritionFacts.id);
-                        Log.d("Test", "test:nutritionFacts" + nutritionFacts.name);
+                        if (nutritionFacts != null) {
+                            Log.d("Test", "test:nutritionFacts" + nutritionFacts);
+                            Log.d("Test", "test:nutritionFacts" + nutritionFacts.id);
+                            Log.d("Test", "test:nutritionFacts" + nutritionFacts.name);
 
-                        new Handler(Looper.getMainLooper()).post(() -> {
-                            binding.includeFreeInput.etInput.setText(nutritionFacts.name);
-                            nutrientAdapter.updateList(nutritionFacts.toStringList());
-                            byte[] imageBytes = nutritionFacts.imageBytes;
-                            if (imageBytes.length != 0) {
-                                setImageByteCodeToImage(binding.ivFood, imageBytes);
-                                setImageByteCodeToImage(binding.includeToolbar.ibRight, imageBytes);
-                            }
-                        });
+                            new Handler(Looper.getMainLooper()).post(() -> {
+                                binding.includeFreeInput.etInput.setText(nutritionFacts.name);
+                                nutrientAdapter.updateList(nutritionFacts.toStringList());
+                                byte[] imageBytes = nutritionFacts.imageBytes;
+                                if (imageBytes != null && imageBytes.length != 0) {
+                                    setImageByteCodeToImage(binding.ivFood, imageBytes);
+                                    setImageByteCodeToImage(binding.includeToolbar.ibRight, imageBytes);
+                                }
+                            });
+                        } else {
+                            Log.d("Test", "test:nutritionFacts is null");
+                            Toast.makeText(getApplicationContext(), "NutritionFacts is null", Toast.LENGTH_SHORT).show();
+                        }
+
                     });
                     initExampleThread.start();
 //
